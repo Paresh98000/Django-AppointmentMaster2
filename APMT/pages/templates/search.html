@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block otherpage %}
+    
+    {% for s in search %}
+    
+    <a href="/service/view?serid={{s.id}}">
+        <div style="background:darkslategrey; border-radius: 10px; color:white; padding:10px; margin:5px;">
+            <h1>{{s.title}}</h1>
+            <h3>{{s.description}}</h3>
+            <h4 style='margin:0; margin-top:3px;  text-decoration:none;'>From {{s.time_start_h}}:{{s.time_start_m}} To {{s.time_end_h}}:{{s.time_end_m}} | Days : {{s.day}} | Address: {{s.location}} | {{s.city}} | Phone: {{s.phone_no}} | type: {{s.stype}} </h4>
+        </div>
+    </a>
+
+    {% endfor %}
+
+{% endblock %}

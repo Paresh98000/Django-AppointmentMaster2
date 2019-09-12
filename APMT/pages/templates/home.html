@@ -1,0 +1,69 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block otherpage %}
+
+<head>
+    <title>Appointment Master</title>
+    <link type="text/css" rel="stylesheet" href="{% static 'pages/homepage.css' %}" />
+</head>
+
+<div class="container" id="Busi">
+   
+   <h1>Cities</h1>
+
+   {% for i in city_box %}
+    
+   <div class="box">
+      <h2 align='center'>{{i}}</h2>
+      <div>
+         {% for j in objects_s %}
+            {% if j.city == i %}
+               <a href="/service/view?serid={{j.id}}" style="font-size:15px;"> {{j.title}} | {{j.day}} </a> <br /> <hr /> <br />
+            {% endif %}
+         {% endfor %}
+      </div>
+      <!-- <a href="" id='seemore'>See More</a> -->
+      <br />
+      <br />
+   </div>
+
+   {% endfor %}
+
+</div>
+
+<div class="container" >
+        <h1 >Business</h1>
+        {% for i in busi_ser_city %}
+        
+        <div class="box" >
+            <h2 align='center'>{{i}}</h2>
+            <div>
+               {% for j in objects_s %}
+                  {% if j.city == i and j.stype == 'Business' %}
+                     <a href="/service/view?serid={{j.id}}" style="font-size:15px;"> {{j.title}} | {{j.day}} </a> <br /> <hr /> <br />
+                  {% endif %}
+               {% endfor %}
+               <!-- <a href="" >See More</a> -->
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+
+
+   <div id='Doc' class="container">
+      <h1>Doctor</h1>
+      {% for i in doc_city %}
+      <div class="box">
+         <h2 align='center'>{{i}}</h2>
+         <div>
+            {% for j in objects_s %}
+            {% if i == j.city and j.stype == 'Doctor' %}
+            <a href="/service/view?serid={{j.id}}" style="font-size:15px;"> {{j.title}} | {{j.day}} </a> <br /> <hr /> <br />
+            {% endif %}
+            {% endfor %} 
+         </div>
+      </div>
+      {% endfor %}
+   </div>
+
+{% endblock %}

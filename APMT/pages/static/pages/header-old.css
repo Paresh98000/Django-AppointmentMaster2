@@ -1,0 +1,162 @@
+div.containerheader
+{
+	position: fixed;
+	color: white;
+	border-radius: 10px;
+	text-shadow: 3px 3px 10px black;
+	box-shadow: 1px 1px 2px black;
+	/*-webkit-text-stroke-width: 1px;
+	-webkit-text-stroke-color: black;*/
+	background: rgb(90,100,122); 
+	height:50px;
+	width:98%;
+	margin:0px;
+	padding:10px;
+	float:left;
+	min-width: 945px;
+}
+
+#searchtext
+{
+	box-shadow: 3px 3px 1px gray;
+	transition-duration: 200ms;
+	
+}
+
+#searchtext:focus
+{
+	box-shadow: 0px 0px 1px gray;
+	transition-duration: 200ms;
+	border-bottom: 5px solid black;
+	height:38px;	
+}
+
+#searchtext:hover
+{
+	box-shadow: 3px 3px 1px black;
+	transition-duration: 200ms;
+}
+
+#searchbtn
+{
+	background: rgb(90,100,122); 
+	
+	transition-duration: 600ms;
+}
+a #searchbtn:hover
+{
+	transition-duration:600ms;
+	/*height:27px;
+	width: 27px;*/
+	box-shadow: 10px 10px 5px black;
+	/*border: 3px solid black;*/
+	background: rgb(15, 115, 230);
+}
+
+a #searchbtn:click
+{
+	height: 20px;
+	width: 30px;
+}
+
+.pmenu
+{
+	position: relative;
+	background: rgb(90,100,122);
+	padding: 3px;
+	top: -17px;
+	border-bottom-left-radius: 10px;
+	border-bottom-right-radius: 20px;
+}
+
+.pmenu li
+{
+	display:block;
+	font-size: 18px;
+	margin-top: 3px;
+	padding: 3px;
+	transition-duration: 700ms;
+}
+
+.pmenu li a
+{
+	text-decoration: none;
+	color: white;
+}
+
+.pmenu li:hover
+{
+	transition-duration: 700ms;
+	background: black;
+}
+
+.pmenu{
+	transition-duration: 600ms;
+	opacity: 0;
+	display: block;
+}
+
+.profile:hover .pmenu
+{
+	display:block;
+	opacity: 1;
+	transition-duration: 600ms;
+}
+
+div.navigation
+{
+	position:fixed;
+	top: 71px;
+	left: 15px;
+	height: 47px;
+	background: rgb(90,100,122);
+	align-items: center;
+	/*border-bottom-left-radius: 10px;*/
+	/*border-bottom-right-radius: 20px;*/
+}
+
+nav
+{
+	position: relative;
+	top:-7px;
+}
+
+.navigation li{
+	display: inline;
+	padding: 10px;
+	background: rgb(90,100,122);
+	font-weight:bold;
+	font-size: 20px;
+	border-bottom-right-radius: 0px;
+	/*background: black;*/
+	transition-duration: 500ms;
+}
+
+.navigation li:hover
+{
+	/*display: inline;
+	padding: 5px;
+	float: left;
+	background: gray;
+	font-weight:bold;
+	font-size: 20px;*/
+	background: black;
+	transition-duration: 500ms;
+	box-shadow: 3px 3px 3px black;
+}
+
+.navigation li a
+{
+
+	color: white;
+	text-decoration: none;
+}
+
+.navigation li a:hover
+{
+
+	color: white;
+	
+	text-decoration: none;
+}
+

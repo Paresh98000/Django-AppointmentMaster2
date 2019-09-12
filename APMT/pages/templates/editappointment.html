@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block otherpage %}
+
+<style>
+
+    input,textarea,label{
+        font-size: 20px;
+    }
+
+</style>
+
+<div style='text-align:center; background: linear-gradient(lightblue,gray,lightblue);' class="service">
+    
+    <form method='post' action="{% url 'editapp' app.id %}">
+        {% csrf_token %}
+        <hr />
+        <h1>Edit Appointment</h1>
+        <label>Time : </label><input type="time" name='time' value="{% if app.time.hour < 10 %}0{% endif %}{{app.time.hour}}:{% if app.time.minute < 10 %}0{% endif %}{{app.time.minute}}" required/> <br /><br />
+        <label>Date (MM/DD/YYYY) : </label><input type="date" name="date" value="{{app.date.year}}-{% if app.date.month < 10 %}0{% endif %}{{app.date.month}}-{% if app.date.day < 10 %}0{% endif %}{{app.date.day}}" required/><br /> <br />
+        <label>Details : </label><textarea name='detail' rows='10' cols='50' placeholder="details" required>{{app.description}}</textarea> <br />
+        <input type='text' name='serid' value='{{app.serviceid.id}}' hidden />
+        <input type='text' name='appid' value='{{app.id}}' hidden />
+        <hr />
+        <input type='submit' value="Save Changes" style="font-size:20px;">
+    </form>
+    <hr />
+    <div>
+    <img src="/static/images/sp/{{app.serviceid.image}}" height="500px" width="700px"/>
+
+    <h1> <span style="color:white;">{{app.serviceid.title}} </span> </h1> 
+    
+    <span><span style="color:blue;"> Provider:- </span>{{app.serviceid.providerid.name}}</span>
+    <hr />
+    <h2>{{app.serviceid.day}}</h2>
+    <h2> <span style="color:blue;"> Time From </span> <span style="color:white;"> {{app.serviceid.time_start_h}}:{{app.serviceid.time_start_m}} </span> <span style="color:blue;">  To </span> <span style="color:white;"> {{app.serviceid.time_end_h}}:{{app.serviceid.time_end_m}} </span>  </h2>
+    <h2> <span style="color:blue;"> Service Type: </span> <span style="color:white;"> {{app.serviceid.stype}} </span> </h2>
+    
+    <h2 style="color:white;">{{app.serviceid.description}}</h2>
+
+    <h2> <span style="color:blue;"> Address: </span>  <span style="color:white; "> {{app.serviceid.location}} </span> </h2>
+    <h2> <span style="color:blue;"> City: </span> <span style="color:white;"> {{app.serviceid.city}} </span> </h2>
+    <h2> <span style="color:blue;"> Contact No.: </span> <span style="color:white;"> {{app.serviceid.phone_no}} </span> </h2>
+    <h2> <span style="color:blue;"> Cost: </span> <span style="color:white;"> {{app.serviceid.cost}} </span> </h2>
+    <hr />
+
+{% endblock %}

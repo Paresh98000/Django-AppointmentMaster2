@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block otherpage %}
+
+<html>
+    
+    <head>
+        <title>User Dashboard</title>
+        <link type="text/css" rel="stylesheet" href="{% static 'pages/usercontentstyle.css' %}" />
+    </head>
+
+    <body>
+       <div class="container">
+            <div class="box">
+                <h3 align='center'>Appointment</h3>
+                <div>
+                    <ul>
+                        <a href="{% url 'home' %}"><li>Take New</li></a>
+                        <a href="{% url 'manageappointment' %}"><li>Manage</li></a>
+                    </ul>
+                </div>
+            </div>
+       </div>
+    </body>
+
+</html>
+{% endblock %}

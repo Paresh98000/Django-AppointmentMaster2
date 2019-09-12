@@ -1,0 +1,75 @@
+.container
+{
+	margin:10px;
+	padding:1px;
+	background:mediumslateblue;
+	opacity: 0.9;
+	border-radius:10px;
+	padding:5px;
+	overflow: auto;
+}
+
+.box
+{
+	padding: 10px;
+	overflow: auto;
+	background: linear-gradient(to bottom right,rgba(10,10,200,0.6),rgba(0,0,0,0.6));
+	float: left;
+	width: 20%;
+	min-width: 150px;
+	height: 150px;
+	box-shadow: 1px 1px 3px gray;
+	border-radius: 20px;
+	margin-left: 10px;
+	margin-bottom: 10px;
+	color: white;
+	transition-duration: 600ms;
+	
+}
+
+.box:hover
+{
+	box-shadow: 5px 5px 10px black;
+	transition-duration: 600ms;
+
+}
+
+.box h3{
+	
+	color: white;
+	border-bottom: 3px solid black;
+	border-radius: 5px;
+}
+
+
+
+.box a{
+	text-decoration: none;
+	color: white;
+}
+
+.box #seemore{
+	float:right;
+	color:black;
+}
+
+.box a:visited{
+	text-decoration: none;
+	
+}
+
+.box a:active{
+	text-decoration:none;
+	
+}
+
+.box a:target{
+	text-decoration:none;
+	
+}
+
+div.box a:hover{
+	padding:3px;
+	background: white;
+	color: blue;
+}

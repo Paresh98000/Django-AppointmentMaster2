@@ -1,0 +1,87 @@
+
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block otherpage %}
+
+<head>
+    
+    <title>Manage Appointment</title>
+    
+    <link type="text/css" rel="stylesheet" href="{% static 'pages/serviceprovidercontentstyle.css' %}" />
+
+    <style>
+    
+        .box:hover{
+            cursor:pointer;
+        }
+
+    </style>
+
+</head>
+
+<body>
+    
+    <div class="container">
+
+            {% if isappointmentsare %}
+        
+            {% for a in appointment %}
+            
+            <div class="box">
+    
+                    <span style="float:right; margin-right:20px; margin-top: 5px;">{% if a.status == 'Pending' %} <font color="yellow">- {{a.status}} -</font> {% elif a.status == 'Rejected' %} <font color="Red">- {{a.status}} -</font> {% else %}<font color="lightblue"> - {{a.status}} - </font> {% endif %}  </span>
+                    
+                    <h2 align='center' style="margin-bottom:0;"> 
+			<span style='color: lightgreen; font-size:small;'>Client Name :- </span> {{a.clientid.name}} 
+			<span style='color: lightgreen; font-size:small;'><br/>Time :- </span><span style="font-size: 15px;">{{a.time}} {{a.date}}</span>
+                        <span style="font-size: 15px; color: white;"> <br/>{{a.serviceid.title}} </span>
+                   
+                    
+                    </h2>
+                    
+                    <hr />
+                    
+                    <div>
+                            <h4 align="center" color:white; style='margin:0; margin-top:3px'>{{a.description}}</h4>
+                    </div>
+                    
+                </a>
+                <br />
+                <span  style="text-align: center; margin-left:20px; font-size: 20px;">
+		<form method="post" action="{% url 'approve' %}">
+			{% csrf_token %}
+			<input name="appid" value="{{a.id}}" hidden/>
+                    <Button style="color:blue; font-size: 20px;" {% if a.status == 'Approved' %}disabled{% endif %}>Approve</Button>
+		</form>
+		<form method='post' action="{% url 'reject' %}">
+			{% csrf_token %}
+			<input name="appid" value="{{a.id}}" hidden/>
+                    <Button style="color:red; font-size: 20px;" {% if a.status == 'Rejected' %}disabled{% endif %}>Reject</Button>
+		</form>
+                </span>
+
+            </div>
+            
+            {% endfor %}
+
+            {% else %}
+            <div class="box" >
+                
+                
+                    <span style="float:right; margin-right:20px; margin-top: 5px;">{% if a.status == 'Pending' %} <font color="yellow">- {{a.status}} -</font> {% elif a.status == 'Rejected' %} <font color="Red">- {{a.status}} -</font> {% else %}<font color="lightblue"> - {{a.status}} - </font> {% endif %}  </span>
+                    
+                    <h2 align='center' style="margin-bottom:0;">No Appointments 
+                        
+                    </h2>
+                    
+                   
+            </div>
+            {% endif %}
+
+    </div>
+    
+</body>
+
+{% endblock %}

@@ -1,0 +1,323 @@
+body {font-family: Arial, Helvetica, sans-serif; font-size:12px;}
+
+div.containerheader
+{
+	position: fixed;
+	color: rgb(54, 54, 230);	
+	box-shadow: 0px 1px 1px gray;
+	/*-webkit-text-stroke-width: 1px;
+	-webkit-text-stroke-color: black;*/ 
+	height:100px;
+	width:98%;
+	margin:0px;
+	top: 3px;
+	padding:10px;
+	float:left;
+	background: white;
+	z-index:1;
+	opacity: 1;
+}
+
+div h1 a
+{
+	color: blue;
+}
+
+#searchtext
+{
+	box-shadow: 1px 1px 1px black;
+	transition-duration: 200ms;
+	background: #f1f1f1;
+	border:none;
+	height:41px;
+	border-bottom: 5px solid gray;
+}
+
+#searchtext:focus
+{
+	box-shadow: 0px 0px 1px black;
+	transition-duration: 200ms;
+	border-bottom: 5px solid blue;
+	height:41px;
+}
+
+#searchtext:hover
+{
+	box-shadow: 3px 3px 1px black;
+	transition-duration: 200ms;
+}
+
+
+#searchbtn
+{
+	/* background: rgb(4, 49, 145);  */
+	width: 30px; 
+	height: 30px;
+	transition-duration: 600ms;
+}
+
+
+#searchbtn:hover
+{
+
+	transition-duration:600ms;
+	
+	/*height:27px;
+	width: 27px;*/
+
+	/*border: 3px solid black;*/
+
+	background: gray;
+}
+
+a #searchbtn:click
+{
+	height: 20px;
+	width: 30px;
+}
+
+#redirect
+{
+	color:white; 
+	/* box-shadow: 3px 3px 3px gray;  */
+	display:inline-flex; 
+	border-radius: 10px; 
+	height: 35px; 
+	align-items: center; 
+	background: blue; 
+	position: relative;
+	font-weight: bold;
+	font-size: 12px;
+	padding: 3px;
+	left:-45px;
+	bottom:-11px;
+	transition-duration:500ms;
+}
+
+#redirect:hover{
+	background: blue;
+	color: white;
+	transition-duration:500ms;
+	box-shadow: 5px 5px 10px gray;
+}
+
+#profileicon
+{
+	width: 100%;
+	height: 90px;
+	background:white;
+	opacity: 0.3;
+}
+
+#profileicon:hover{
+	cursor:hand;
+}
+
+#unsigned a{
+	text-decoration: none;
+	padding: 5px;
+}
+
+#unsigned a:hover{
+	background: blue;
+	color: white;
+}
+
+.pmenu #menus{
+	
+	display: block;
+	background: white;
+	border-bottom-left-radius:10px;
+	border-bottom-right-radius:10px;
+	box-shadow: 1px 1px 5px black;
+}
+
+.pmenu
+{
+	position: relative;
+	left: -30px;
+	box-shadow: 1px 1px 5px black;
+	top: -80px;
+	border-radius: 10px;
+	transition-duration: 500ms;
+	opacity: 0;
+	display: block;
+}
+
+
+.pmenu li
+{
+	font-size: 15px;
+	padding: 3px;
+	transition-duration: 500ms;
+	list-style-type: none;
+}
+
+.pmenu ul
+{
+	padding: 3px 10px;
+}
+
+.pmenu li a
+{
+	width: 100%;
+	display: block;
+	text-decoration: none;
+	color: blue;
+	padding:5px;
+}
+
+.pmenu li a:hover
+{
+	transition-duration: 500ms;
+	color:white;
+	background: blue;
+}
+
+.pmenu li:hover
+{
+	transition-duration: 500ms;
+	color:white;
+	background: black;
+}
+
+#profileicon:hover{
+	cursor: pointer;
+}
+
+div.navigation
+{
+	position:fixed;
+	top: 90px;
+	left: 15px;
+	height: 45px;
+	min-height: 30px;
+	/* background: rgb(4, 49, 145); */
+	align-items: center;
+	width: 85%;
+	min-width: 787px;
+	z-index:2;
+	/* box-shadow: 0px 1px 1px gray; */
+	
+}
+
+nav
+{
+	position: relative;
+	top:-7px;
+}
+
+.navigation li{
+	display: inline;
+	margin-top: 20px;
+	/* background: rgb(4, 49, 145); */
+	font-weight:bold;
+	font-size: 12x;
+	border-bottom-right-radius: 0px;
+	/*background: black;*/
+	transition-duration: 500ms;
+}
+
+.navigation li a:hover
+{
+	/*display: inline;
+	padding: 5px;
+	float: left;
+	background: gray;
+	font-weight:bold;
+	font-size: 20px;*/
+	background: black;
+	transition-duration: 500ms;
+	box-shadow: 3px 3px 3px black;
+}
+
+.navigation li a
+{
+	padding: 10px;
+	color: blue;
+	text-decoration: none;
+}
+
+.navigation li a:hover
+{
+	color: white;
+	font-weight: bold;
+	text-decoration: none;
+}
+
+#signed img:hover{
+	cursor: pointer;
+}
+
+#signed h5:hover{
+	cursor: pointer;
+}
+
+#signed span:hover{
+	cursor: pointer;
+}
+
+.diffservices{
+	background: white;
+	width: 40%;
+	top: 125px;
+	position: fixed;
+	height:250px;
+	overflow:auto;
+	left:15%;
+	display: block;
+	opacity: 0;
+	box-shadow: 0px 1px 3px black;
+	border-radius: 5px;
+	transition-duration: 900ms;
+	visibility: hidden;
+}
+
+#abcd:hover + .diffservices {
+	opacity: 0.9;
+	transition-duration: 900ms;
+	visibility: visible;
+}
+
+.diffservices:hover{
+	opacity: 0.9;
+	transition-duration: 900ms;
+	visibility: visible;
+}
+
+div.sub-menu {
+	/* margin-top:10px; */
+	background: white;
+}
+
+div.sub-menu li{
+	display: list-item;
+	/* float: left; */
+	/* list-style-type:none; */
+	/* margin: 10px 10px; */
+	background: white;
+	/* margin:0px; */
+}
+
+div.sub-menu li a{
+	color:blue;
+	/* margin:0px; */
+}
+
+div.sub-menu li a:hover{
+	color:white;
+	text-decoration: underline;
+	box-shadow: none;
+	background: blue;
+	margin:0px;
+}
+
+div.otherpages{
+	border-top : 3px solid black;
+	position: relative;
+	top:150px;
+	width:99%;
+	min-height:300px;
+	
+	
+}

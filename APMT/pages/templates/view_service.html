@@ -1,0 +1,65 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block otherpage %}
+
+    <head>
+
+        <style>
+
+            .service{
+                background: rgb(100,150,223);
+            }
+
+            .service img{
+                border: 1px solid black;
+                margin:10px;
+                height:50%;
+                width: 60%;
+            }
+
+        </style>
+
+<style>
+
+        input,textarea,label{
+            font-size: 20px;
+        }
+        
+    </style>
+
+    </head>
+
+    <div style='text-align:center; background: rebeccapurple;' class="service">
+        <div>
+        <img src="/static/images/sp/{{ser.image}}" />
+
+        <h1> <span style="color:white;">{{ser.title}} </span> </h1> 
+        
+        <span><span style="color:black;"> Provider:- </span>{{provider}}</span>
+        <hr />
+        <h2>{{ser.day}}</h2>
+        <h2> <span style="color:black;"> Time From </span> <span style="color:white;"> {{ser.time_start_h}}:{{ser.time_start_m}} </span> <span style="color:black;">  To </span> <span style="color:white;"> {{ser.time_end_h}}:{{ser.time_end_m}} </span>  </h2>
+        <h2> <span style="color:black;"> Service Type: </span> <span style="color:white;"> {{ser.stype}} </span> </h2>
+        
+        <h2 style="color:white;">{{ser.description}}</h2>
+
+        <h2> <span style="color:black;"> Address: </span>  <span style="color:white;"> {{ser.location}} </span> </h2>
+        <h2> <span style="color:black;"> City: </span> <span style="color:white;"> {{ser.city}} </span> </h2>
+        <h2> <span style="color:black;"> Contact No.: </span> <span style="color:white;"> {{ser.phone_no}} </span> </h2>
+        <h2> <span style="color:black;"> Cost: </span> <span style="color:white;"> {{ser.cost}} </span> </h2>
+        <hr />
+        <form method='post' action="{% url 'appointment' %}">
+            {% csrf_token %}
+            <h2>Appointment</h2>
+            <label>Time : </label><input type="time" name='time' required/> <br />
+            <label>Date : </label><input type="date" name="date" required/><br />
+            <label>Details : </label><textarea name='detail' placeholder="details" required></textarea> <br />
+            <input type='text' name='serid' value='{{ser.id}}' hidden />
+            <hr />
+            <input type='submit' value="Take Appointment" style="font-size:20px;">
+        </form>
+    </div>
+
+{% endblock %}

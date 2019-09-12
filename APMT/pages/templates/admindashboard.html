@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block otherpage %}
+
+<html>
+    
+    <head>
+        <title>Admin Dashboard</title>
+        <link type="text/css" rel="stylesheet" href="{% static 'pages/admincontentstyle.css' %}" />
+    </head>
+
+    <body>
+       <div class="container">
+            <div class="box">
+                <h3 align='center'>Appointment</h3>
+                <div>
+                    <ul>
+                        <li>Show All</li>
+                        <li>Create new</li>
+                        <li>History</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="box">
+                    <h3 align='center'>Service</h3>
+                    <div>
+                        <ul>
+                            <li>Show All</li>
+                            <li>Create new</li>
+                            <li>History</li>
+                        </ul>
+                    </div>
+                </div>
+			<div class="box">
+                    <h3 align='center'>User</h3>
+                    <div>
+                        <ul>
+                            <li>Show All</li>
+                            <li>View Feedback</li>
+                            <li>History</li>
+                        </ul>
+                    </div>
+                </div>
+		
+			
+			<div class="box">
+                    <h3 align='center'>Service Provider</h3>
+                    <div>
+                        <ul>
+                            <li>Show All</li>
+                            <li>Create new</li>
+                            <li>History</li>
+                        </ul>
+                    </div>
+                </div>
+       </div> 
+    </body>
+
+</html>
+{% endblock %}

@@ -1,0 +1,229 @@
+{% load static %}
+<!DOCTYPE HTML>
+<html>
+
+	<head>
+		
+		<link rel='stylesheet' type='text/css' href="{% static 'pages/header.css' %}" />
+		<link rel='stylesheet' type='text/css' href="{% static 'pages/footer.css' %}" />
+
+		<script>
+		
+			function search(){
+
+				document.getElementById('rr').href='/service/search?searchtext='+document.getElementById('searchtext').value;
+				return 0;
+			}
+
+			function logout(){
+				document.getElementById('signed').style.display= 'none';
+				document.getElementById('unsigned').style.display= 'block';
+				
+			}
+			
+			function load(){
+			document.getElementById('searchtext').focus();
+			}
+			isdrop = false;
+			function dropdown(){
+				v = document.getElementsByClassName('pmenu');
+				if(isdrop){
+					v[0].style.opacity = '0';
+					isdrop=false;
+					v[0].style.display = 'none';
+				}
+				else{
+					v[0].style.display = 'block';
+					v[0].style.opacity = '1';
+					v[0].style.transitionDuration='600ms'; 
+					isdrop=true;
+				}
+			}
+			
+			
+
+		</script>
+
+	</head>
+
+	<body onload="load();">
+
+		<header>
+				
+			<div class='containerheader'>
+				
+				<div class="title" style="width: 30%; ">
+					<h1 style="margin-left:30px; float:left; min-width: 290px"><a href="/homepage" style="text-decoration: none; "> Appointment Master </a> </h1>
+				</div>
+				
+				<div class="profile"  style="float:right; width: 100px; width: 12%; min-width: 150px;">
+					
+					<span id="signed" style='display:{{ profile_visibility }}'>
+					
+						<h5 onmousedown="dropdown();" style="width:50%; text-align:center; margin:0; padding:0;">
+							<img width="50px" height="50px" src='{% static "/images/user.png" %}' >
+							<span style="display:block; padding: 0px 5px 5px 5px; border-bottom-left-radius:5px; border-bottom-right-radius:5px; font-weight:bold; font-size: 16px;">{{ user_name }}</span>
+						</h5>
+
+					<div class="pmenu" >
+					<div id="profileicon" onmousedown="dropdown();" ></div>
+					<div id="menus">
+			
+						<ul>
+
+							{% if issp %}
+							
+								<!-- <li><a href="{% url 'spprf' %}">Profile</a></li> -->
+								<li><a href="{% url 'spdbd' %}"> Dashboard</a></li>
+								<li><a href="{% url 'lot' %}" onclick="logout();">Log Out</a></li>
+							
+							{% elif isadmin %}
+
+								<li><a href="{% url 'admindbd' %}"> Dashboard</a></li>
+								<li><a onclick="logout();" href="{% url 'lot' %}" > Log Out </a></li>
+
+							{% else  %}
+
+								<!-- <li><a href="{% url 'clientprf'  %}"> Profile </a></li> -->
+								<li><a href="{% url 'clientdbd' %}"> Dashboard</a></li>
+								<li><a href="{% url 'appointment' %}">Appointment</a></li>
+								<li><a href="{% url 'notification' %}">Notification</a></li>
+								<li><a href="{% url 'lot' %}" onclick="logout();">Log Out</a></li>
+
+							{% endif %}
+
+						</ul>
+					</div>
+				</div>
+				</span>
+
+				<span id="unsigned" style="display:{{ register_visibility }}">
+				
+					<h3> <a href="{% url 'signin' %}"> Sign In </a> | <a href="{% url 'clientSignup' %}" > Sign Up </a> </h3>
+
+				</span>
+				</div>
+
+				<div class="search" style="float:left; width: 40%; padding-left: 16%;">
+						<form method="get" action="/service/search">
+						<input required type="text" placeholder="search doctor | appointment" id="searchtext" name="searchtext" onkeydown="search();" style="font-size: 20px; width: 70%; padding: 5px; padding-left:9px;  border-radius: 10px; padding-right: 40px;"/>
+						<a id="rr" style="text-decoration:none; " href=""><span id="redirect"><img id="searchbtn" style="position:relative; border: 1px solid solid;  border-radius:10px; padding: 3px; /* box-shadow: 1px 1px 5px black; */ vertical-align:bottom; font-weight:bold;" src="{% static 'images/searchbtn.png' %}" />Search</span> </a>
+					</form>
+					</div> 
+			</div>
+
+		</header>
+
+		<div class="navigation" >
+			<nav>
+				<ul>
+					<li><a href="{% url 'home' %}">Homepage</a> </li>
+					<li style="color: black; font-weight: normal;">Take Appointment For :-</li>
+					<li><a href="/homepage#Doc">Doctors</a> | </li>
+					<li><a href="/homepage#Busi">Business</a> | </li>
+					<!-- <li><a href="">Celebrities</a> | </li> -->
+					<li >
+						<span><a id="abcd" href="#" onblur="docuement.getElementByClass('.diffservices').style.display='none';">Services</a>
+						<div class="diffservices">
+								<div class="sub-menu">
+										<div style="float:left;">
+											<ul>
+												{% for i in service_types %}
+												
+												<li>
+													<a href="/sp/service?title={{i}}">{{i}}</a>
+													<ul style="margin-top:20px;">
+														{% for x in obj_ser %}
+														{% if i == x.stype %}
+														<li><a href="/service/view?serid={{x.id}}">{{x.title}} | {{x.city}}</a></li>
+														{% endif %}
+														{% endfor %}
+													</ul>
+												</li>
+
+												{% endfor %}
+											</ul>
+										</div>
+										
+									</div>
+							</div>
+						</span>
+					|
+					</li>
+					
+					<li><a href="{% url 'spsignup' %}">Join Us</a></li>
+					<!-- <li style="float:right; margin-top: 8px;"><a href="">About Us</a></li>
+					<li style="float:right; margin-top: 8px;"><a href="">Contact Us</a></li> -->
+				</ul>
+				
+			</nav>
+			
+		</div>
+		
+	<div class='otherpages' style='background-image:url("{% static '/images/b.png' %}"); background-repeat: space; background-size:cover;' >
+	
+		{% block otherpage %}
+			
+		{% endblock %}
+		
+		{% block otherpage1 %}
+			
+		{% endblock %}
+		
+	</div>
+
+	<footer>
+			<p id="title"> Appointment Master </p>
+		<div>
+				
+			<div style='float:left; overflow: auto;'>
+				<ul>
+					<li><a href="{% url 'home' %}">Homepage</a></li>
+					<li><a href="">Contact Us</a></li>
+					<li><a href="">About Us</a></li>
+					<li><a href="">Services</a></li>
+				</ul>
+			</div>
+			<div style="float:left;">
+				<ul>
+						<li><a href="{% url 'signin' %}">Client Log In</a></li>
+						<li><a href="{% url 'clientSignup' %}">Client Sign Up</a></li>
+						
+				</ul>
+			</div>
+			<div style="float:left;">
+					<ul>
+						<li><a href="{% url 'splogin' %}">Service Provider Log In</a></li>
+						<li><a href="{% url 'spsignup' %}">Service Provider Sign Up</a></li>
+					</ul>
+				</div>
+
+				<div style="float:left;">
+						<ul>
+								
+								<li>Appointments : {{ total_appointment }}</li>
+								<li>Services : {{ total_service }}</li>
+								<li>Clients : {{ total_client }}</li>
+								<li>Services Providers : {{ total_sp }}</li>
+								
+						</ul>
+					</div>
+		</div>
+
+		<div style="float:right;">
+				<ul>
+						<li><a href="{% url 'adminLogin' %}">Admin Log In</a></li>
+						
+						
+				</ul>
+			</div>
+
+		<p> Raj Trambadiya & Pareshkumar &copy; All Right Reserved</p>
+		
+
+	</footer>
+
+	</body>
+
+</html>
+		

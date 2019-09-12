@@ -1,0 +1,46 @@
+.container
+{
+	
+	padding:1px;
+	margin: 10px;
+}
+
+.box
+{
+	background: linear-gradient(to bottom right, red,black);
+	float: left;
+	min-width: 200px;
+	width:20%;
+	height: 150px;
+	box-shadow: 3px 5px 3px gray;
+	border-radius: 20px;
+	margin-left: 10px;
+	margin-bottom: 10px;
+	transition-duration: 600ms;
+	color: white;
+}
+
+.box:hover
+{
+	box-shadow: 5px 5px 10px black;
+	transition-duration: 600ms;
+}
+
+.box h3{
+	padding:5px;
+	color: white;
+	border-bottom: 3px solid black;
+	border-radius: 5px;
+}
+
+.box li{
+	padding: 3px;
+	font-size: 12px;
+	display:block;
+	transition-duration: 300ms;
+}
+
+.box li:hover{
+	transition-duration:300ms;
+	background: blue;
+}

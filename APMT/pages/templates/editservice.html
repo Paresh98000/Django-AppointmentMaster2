@@ -1,0 +1,202 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block otherpage %}
+<style>
+    /* Full-width input fields */
+form.service input[type=text],input[type=time],#number, input[type=password],select,textarea {
+  width: 100%;
+  padding: 15px;
+  margin: 5px 0 22px 0;
+  display: inline-block;
+  border: none;
+  background: #f1f1f1;
+}
+
+input[type=text]:focus, input[type=password]:focus {
+  background-color: #ddd;
+  outline: none;
+}
+
+select{
+	margin-top: 5px;
+	padding:3px;
+	width: 100%;
+	background: #f1f1f1;
+	font-size: 15px;
+}
+
+hr.client {
+  border: 1px solid #f1f1f1;
+  margin-bottom: 25px;
+}
+
+/* Set a style for all buttons */
+input[type=reset],input[type=submit]{
+  background-color: #4CAF50;
+  color: white;
+  padding: 14px 20px;
+  margin: 8px 0;
+  border: none;
+  cursor: pointer;
+  width:100%;
+  opacity: 0.9;
+}
+
+button {
+  background-color: #4CAF50;
+  color: white;
+  padding: 14px 20px;
+  margin: 8px 0;
+  border: none;
+  cursor: pointer;
+  width:50%;
+  opacity: 0.9;
+}
+
+button.clearfix:hover {
+  opacity:1;
+}
+
+/* Extra styles for the cancel button */
+.cancelbtn, input[type=reset],#cancelbtn{
+  padding: 14px 20px;
+  background-color: #f44336;
+}
+
+/* Float cancel and signup buttons and add an equal width */
+.cancelbtn, .signupbtn {
+  float: left;
+  
+  width:98%;
+}
+
+/* Add padding to container elements */
+.client .container  {
+  padding: 16px;
+}
+
+.cancelbtn a:active{
+  color:white;
+  text-decoration: none;
+}
+
+.cancelbtn a:visited{
+  color:white;
+  text-decoration: none;
+}
+
+.cancelbtn a:blank{
+  color:white;
+  text-decoration:none;
+}
+
+/* Clear floats */
+.clearfix::after {
+  content: "";
+  clear: both;
+  display: table;
+}
+
+/* Change styles for cancel button and signup button on extra small screens */
+
+</style>
+<script>
+
+  function validate(){
+    ele = document.getElementsByName('stype');
+    if(ele[0].value == 'Other'){
+      ele2 = document.getElementsByName('other_stype');
+      ele2[0].outerHTML = '<input type="text" required placeholder="other service type" name="other_stype" style="display:block;">';
+    }else{
+      ele2 = document.getElementsByName('other_stype');
+      ele2[0].outerHTML = '<input type="text" placeholder="other service type" name="other_stype" style="display:none;">';
+    }
+  }
+
+</script>
+
+<form action='{% url "editservice" %}' method="post" class='service'>
+  
+    {% csrf_token %}
+
+    <div class="container">
+            <h1>Edit Service</h1>
+            <h1>Status: {% if s.0.status == "Active" %} <font style="color:blue"> {{s.0.status}} </font>  {% else %} <font style="color:red"> {{s.0.status}} </font> {% endif %}</h1>
+            <hr>
+            <input type='number' name="serid" value="{{s.0.id}}" hidden/>
+            
+            <label for="title"><b>Service Title:</b></label>
+            <input type="text" placeholder="Service Title" value='{{s.0.title}}' name="title" required />
+            
+            <label for="stype"><b>Service Type:</b></label>
+            <select name="stype" onchange="validate();" required>
+                <option value="">- Select Service - </option>
+                {% for i in services %}
+                {% if i.1 == s.0.stype %}
+                <option value="{{i.1}}" selected>{{i.1}}</option>
+                {% else %}
+                <option value="{{i.1}}">{{i.1}}</option>
+                {% endif %}
+                {% endfor %}
+                <option value="Other">Other</option>
+            </select>
+            <input type="text" placeholder="other service type" name="other_stype" style="display:none;"/>
+
+            <label><b>Time Open :</b></label>
+            Hours:
+            <input style="border:none; padding:3px; box-shadow: 1px 1px 3px black;" size='2' name="time_s_h" value='{{s.0.time_start_h}}' type="number" min='0' max='24' placeholder="hour"  required />
+            &nbsp;Minutes:
+            <input size='2' style="border:none; padding:3px; box-shadow: 1px 1px 3px black;" name="time_s_m" value='{{s.0.time_start_m}}' type="number" min='00' max='60' placeholder='minutes' required />
+            <br /><br />
+            <label><b>Time Ends :</b></label>
+            Hours:
+            <input name="time_e_h" style="border:none; padding:3px; box-shadow: 1px 1px 3px black;" size='2' value='{{s.0.time_end_h}}' type="number" min='0' max='23' placeholder="hour"   required />
+            &nbsp;Minutes:
+            <input name="time_e_m" style="border:none; padding:3px; box-shadow: 1px 1px 3px black;" size='2' value='{{s.0.time_end_m}}'  type="number" min='00' max='60' placeholder='minutes'   required />
+            <br /><br /> 
+           <label for="days"><b> Active Days : </b></label>
+            <select name="days" required>
+            <option value="" > Select Days </option>
+
+            <option value="Mon - Sat" {{d.0}}> Mon-Sat ( 6 Days ) </option>
+            <option value="Mon - Fri" {{d.1}}> Mon-Fri ( 5 Days ) </option>
+            <option value="All Days" {{d.2}}> All Days Mon-Sun ( 7 Days ) </option>
+            </select>
+
+            <label for="detail"><b>Discription :</b></label>
+            <textarea placeholder="detailed information about your service" name="detail" required>{{s.0.description}}</textarea>          
+                
+            <label for="location"><b>City : </b></label>
+            <select name='location' required>
+            <option> - Select City -  </option>
+            {% for i in city %}
+                {% if i.1 == s.0.city %}
+                <option value="{{ i.1 }}" selected>{{i.1}}</option>
+                {% else  %}
+                <option value="{{ i.1 }}">{{i.1}}</option>
+                {% endif %}
+            {% endfor %}
+            </select>
+            
+          <label for="address"><b>Address:</b></label>
+          <textarea placeholder="Enter address" name="address" required>{{s.0.location}}</textarea>
+            
+          <label for="phone_no"><b>Mobile No:</b></label>
+          <input type="number" id='number' value="{{s.0.phone_no}}" placeholder="Enter Mobile No" name="phone_no" min='1000000000' max='9999999999'  required />              
+
+          <label for="phone_no"><b>Cost:</b></label>
+          <input type="number" id='number' value="{{s.0.cost}}" placeholder="cost prise" name="cost" min='0' required />              
+            
+            <p>By creating an service you agree to our <a href="#" style="color:dodgerblue">Terms & Privacy</a>.</p>
+        
+            <div class="clearfix">
+              
+              <input type="submit" class="signupbtn" value="Save" />
+              
+              <a href='{% url "spdbd" %}' style="text-align: center; text-decoration: none; color:white; font-size:12px;" class="cancelbtn">Cancel</a>
+    
+            </div>
+          </div>
+          
+</form>
+{% endblock %}

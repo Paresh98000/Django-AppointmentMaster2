@@ -1,0 +1,175 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block otherpage %}
+<style>
+    /* Full-width input fields */
+form.service input[type=text],input[type=time],#number, input[type=password],select,textarea {
+  width: 100%;
+  padding: 15px;
+  margin: 5px 0 22px 0;
+  display: inline-block;
+  border: none;
+  opacity:0.91;
+  background: #f1f1f1;
+}
+
+input[type=text]:focus, input[type=password]:focus {
+  background-color: #ddd;
+  outline: none;
+}
+
+select{
+	margin-top: 5px;
+	padding:3px;
+	width: 100%;
+	background: #f1f1f1;
+	font-size: 15px;
+}
+
+hr.client {
+  border: 1px solid #f1f1f1;
+  margin-bottom: 25px;
+}
+
+/* Set a style for all buttons */
+input[type=reset],input[type=submit] {
+  background-color: #4CAF50;
+  color: white;
+  padding: 14px 20px;
+  margin: 8px 0;
+  border: none;
+  cursor: pointer;
+  width:50%;
+  opacity: 0.9;
+}
+
+button {
+  background-color: #4CAF50;
+  color: white;
+  padding: 14px 20px;
+  margin: 8px 0;
+  border: none;
+  cursor: pointer;
+  width:50%;
+  opacity: 0.9;
+}
+
+button.clearfix:hover {
+  opacity:1;
+}
+
+/* Extra styles for the cancel button */
+.cancelbtn, input[type=reset]{
+  padding: 14px 20px;
+  background-color: #f44336;
+}
+
+/* Float cancel and signup buttons and add an equal width */
+.cancelbtn, .signupbtn {
+  float: left;
+  width: 50%;
+}
+
+/* Add padding to container elements */
+.client .container  {
+  padding: 16px;
+}
+
+/* Clear floats */
+.clearfix::after {
+  content: "";
+  clear: both;
+  display: table;
+}
+
+/* Change styles for cancel button and signup button on extra small screens */
+
+</style>
+<script>
+
+  function validate(){
+    ele = document.getElementsByName('stype');
+    if(ele[0].value == 'Other'){
+      ele2 = document.getElementsByName('other_stype');
+      ele2[0].outerHTML = '<input type="text" required placeholder="other service type" name="other_stype" style="display:block;">';
+    }else{
+      ele2 = document.getElementsByName('other_stype');
+      ele2[0].outerHTML = '<input type="text" placeholder="other service type" name="other_stype" style="display:none;">';
+    }
+  }
+
+</script>
+
+<form action='{% url "newservice" %}' method="post" enctype="multipart/form-data" class='service'>
+  
+    {% csrf_token %}
+
+    <div class="container">
+            <h1>Create new Service</h1>
+            <p>Please fill in this form to create a new Service. The service will be published within 48 hours. It will take time to ensure the genuality of it.</p>
+            <hr>
+            
+            <label for="title"><b>Service Title:</b></label>
+            <input type="text" placeholder="Service Title" name="title" required />
+            
+            <label for="stype"><b>Service Type:</b></label>
+            <select name="stype" onchange="validate();" required>
+                <option value="">- Select Service - </option>
+                {% for i in services %}
+                <option value="{{i.1}}">{{i.1}}</option>
+                {% endfor %}
+                <option value="Other">Other</option>
+            </select>
+             <input type="text" placeholder="other service type" name="other_stype" style="display:none;"/>
+
+            <label><b>Time Open :</b></label>
+            <input name="time_s_h" type="number" min='0' max='24' placeholder="hour"  required />
+            <input name="time_s_m" type="number" min='00' max='60' placeholder='minutes' required />
+            <br /><br />
+            <label><b>Time Ends :</b></label>
+            <input name="time_e_h"  type="number" min='0' max='23' placeholder="hour"   required />
+            <input name="time_e_m" type="number" min='00' max='60' placeholder='minutes'   required />
+            <br /><br /> 
+           <label for="days"><b> Active Days : </b></label>
+            <select name="days" required>
+            <option value="" > Select Days </option>
+            <option value="Mon - Sat" > Mon-Sat ( 6 Days ) </option>
+            <option value="Mon - Sat" > Mon-Fri ( 5 Days ) </option>
+            <option value="All Days" > All Days Mon-Sun ( 7 Days ) </option>
+            </select>
+
+            <label for="detail"><b>Discription :</b></label>
+            <textarea placeholder="detailed information about your service" name="detail" required></textarea>          
+                
+            <label for="location"><b>City : </b></label>
+            <select name='location' required>
+            <option> - Select City -  </option>
+            {% for i in city %}
+                <option value="{{ i.1 }}">{{i.1}}</option>
+            {% endfor %}
+            </select>
+            
+          <label for="address"><b>Address:</b></label>
+          <textarea placeholder="Enter address" name="address" required></textarea>
+            
+          <label for="phone_no"><b>Mobile No:</b></label>
+          <input type="number" id='number' placeholder="Enter Mobile No" name="phone_no" min='1000000000' max='9999999999'  required />
+          
+          <label for="phone_no"><b>Cost Prize (Indian Rs.) : </b></label>
+          <input type="number" id='number' placeholder="Cost" name="cp" min='0' max='99999'  required />
+
+          <label for="profile"><b>Image : </b></label>
+          <input type="file" name='profile' value="upload file" placeholder="upload" />
+
+            <p>By creating an service you agree to our <a href="#" style="color:dodgerblue">Terms & Privacy</a>.</p>
+        
+            <div class="clearfix">
+              
+              <input type="submit" class="signupbtn" value="Submit Service" />
+              <input type="reset" class="cancelbtn" value="Reset"/>
+    
+            </div>
+          </div>
+          
+</form>
+{% endblock %}

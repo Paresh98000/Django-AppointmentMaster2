@@ -1,0 +1,19 @@
+footer
+{
+    position: relative;
+    top: 500px;
+    min-height: 20%;
+    background: rgb(90,100,122);
+    padding: 10px;
+    text-align: center;
+    color: white;
+    font-weight: bold;
+    overflow: auto;
+    border-radius: 10px;
+}
+
+footer div
+{
+    display: inline-flex;
+    
+}
