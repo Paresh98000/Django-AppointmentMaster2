@@ -15,23 +15,18 @@
 	overflow: auto;
 	background: linear-gradient(to bottom right,rgba(10,10,200,0.6),rgba(0,0,0,0.6));
 	float: left;
-	width: 20%;
-	min-width: 150px;
-	height: 150px;
 	box-shadow: 1px 1px 3px gray;
 	border-radius: 20px;
 	margin-left: 10px;
 	margin-bottom: 10px;
 	color: white;
 	transition-duration: 600ms;
-	
 }
 
 .box:hover
 {
 	box-shadow: 5px 5px 10px black;
 	transition-duration: 600ms;
-
 }
 
 .box h3{

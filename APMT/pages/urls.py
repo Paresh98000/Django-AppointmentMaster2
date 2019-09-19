@@ -31,4 +31,7 @@ urlpatterns = [
 	path('sp/appointment/approve',views.appapprove,name='approve'),
 	path('sp/appointment/reject',views.appreject,name='reject'),
 	path('service/search',views.search,name='search'),
+	path('order/',views.order,name='order'),
+	path("handlerequest/", views.handlerequest, name="HandleRequest"),
+	path("paytm/", views.paytm, name="paytm"),
 ]

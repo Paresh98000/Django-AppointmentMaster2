@@ -17,47 +17,55 @@
             cursor:pointer;
         }
 
+        h2{
+            font-size: 20px;
+        }
+
+        h4{
+            font-size: 15px;
+        }
+
     </style>
 
 </head>
 
 <body>
     
-    <div class="container">
+    <div class="container-fluid" >
 
             {% if isappointmentsare %}
-        
+            <div class="row">
             {% for a in appointment %}
             
-            <div class="box" onclick="window.location('/client/appointment/edit/{{a.id}}')">
+            <div class="col-sm" style="background: linear-gradient(gray,black,black,blue,black); margin:10px;" onclick="window.location('/client/appointment/edit/{{a.id}}')">
                 
                 <a href="{% url 'editapp' a.id %}">
-                    <span style="float:right; margin-right:20px; margin-top: 5px;">{% if a.status == 'Pending' %} <font color="yellow">- {{a.status}} -</font> {% elif a.status == 'Rejected' %} <font color="Red">- {{a.status}} -</font> {% else %}<font color="lightblue"> - {{a.status}} - </font> {% endif %}  </span>
+                    <span>{% if a.status == 'Pending' %} <font color="yellow">- {{a.status}} -</font> {% elif a.status == 'Rejected' %} <font color="Red">- {{a.status}} -</font> {% else %}<font color="lightblue"> - {{a.status}} - </font> {% endif %}  </span>
                     
-                    <h2 align='center' style="margin-bottom:0;">{{a.serviceid.title}} 
-                        <span style="font-size: 15px; color: lightblue; "> :- </span>
-                    <span style="font-size: 15px;">{{a.time}} {{a.date}}</span>
+                    <h2 align='center' >{{a.serviceid.title}} 
+                        <span > :- </span>
+                    <span >{{a.time}} {{a.date}}</span>
                     
                     </h2>
                     
                     <hr />
                     
                     <div>
-                            <h4 align="center" style='margin:0; margin-top:3px'><span style='color: lightblue;'>Open Till :- </span>  {{a.serviceid.time_end_h}}:{{a.serviceid.time_end_m}} <span style='color: lightblue;'> | Active Days :- </span> {{a.serviceid.day}} <br /> <span style='color: lightblue;'>Address :- </span> {{a.serviceid.location}} <br /> <span style='color: lightblue;'> City :- </span> {{a.serviceid.city}} <br /> <span style='color: lightblue;'> Phone :-</span> {{a.serviceid.phone_no}} <span style='color: lightblue;'>  | type :- </span> {{a.serviceid.stype}} </h4>
+                            <h4 align="center" ><span style='color: lightblue;'>Open Till :- </span>  {{a.serviceid.time_end_h}}:{{a.serviceid.time_end_m}} <span style='color: lightblue;'> | Active Days :- </span> {{a.serviceid.day}} <br /> <span style='color: lightblue;'>Address :- </span> {{a.serviceid.location}} <br /> <span style='color: lightblue;'> City :- </span> {{a.serviceid.city}} <br /> <span style='color: lightblue;'> Phone :-</span> {{a.serviceid.phone_no}} <span style='color: lightblue;'>  | type :- </span> {{a.serviceid.stype}} </h4>
                             
                     </div>
                     
                 </a>
 <br/>
-                <span  style="text-align: center; margin-left:20px; align-self: center; font-size: 20px;"><a style=" color:greenyellow; text-decoration: underline; font-size: 20px;" href="{% url 'editapp' a.id %}">Edit</a> |
-                    <a style=" color:red; text-decoration: underline; font-size: 20px;" href="{% url 'delapp' a.id %}">Delete</a>
+                <span  ><a  href="{% url 'editapp' a.id %}">Edit</a> |
+                    <a  href="{% url 'delapp' a.id %}">Delete</a>
                     
                 </span>
 
             </div>
             
             {% endfor %}
-
+        </div>
             {% else %}
             <div class="box" >
                 

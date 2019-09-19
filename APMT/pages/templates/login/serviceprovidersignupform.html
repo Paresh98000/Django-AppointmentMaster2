@@ -9,7 +9,7 @@
 body {font-family: Arial, Helvetica, sans-serif;}
 
 /* Full-width input fields */
-input,select {
+.myform input,select {
   width: 100%;
   padding: 15px;
   margin: 5px 0 22px 0;
@@ -24,12 +24,12 @@ input[type=text]:focus, input[type=password]:focus {
 }
 
 hr {
-  border: 1px solid #f1f1f1;
+  border: 1px solid #1f1f1f;
   margin-bottom: 25px;
 }
 
 /* Set a style for all buttons */
-input[type=submit],input[type=reset] {
+ input[type=submit],input[type=reset] {
   background-color: #4CAF50;
   color: white;
   padding: 14px 20px;
@@ -40,7 +40,7 @@ input[type=submit],input[type=reset] {
   opacity: 0.9;
 }
 
-input[type=submit]:hover,input[type=reset]:hover {
+ input[type=submit]:hover,input[type=reset]:hover {
   opacity:1;
 }
 
@@ -57,7 +57,7 @@ input[type=submit]:hover,input[type=reset]:hover {
 }
 
 /* Add padding to container elements */
-.container {
+.panel panel-default .container {
   padding: 16px;
 }
 
@@ -108,7 +108,7 @@ function checkmobile(){
 
 <body>
 
-  <form action="{% url 'spsignup' %}" method='post' enctype="multipart/form-data" style="border:1px solid #ccc">
+  <form class="myform" action="{% url 'spsignup' %}" method='post' enctype="multipart/form-data" style="border:1px solid #ccc">
     {% csrf_token %}
   <div class="container">
 

@@ -5,20 +5,29 @@
 <head>
     <title>Appointment Master</title>
     <link type="text/css" rel="stylesheet" href="{% static 'pages/homepage.css' %}" />
+    <style>
+       h1{
+          margin-left:10px;
+       }
+       h2{
+          font-size: 20px;
+       }
+    </style>
 </head>
 
-<div class="container" id="Busi">
-   
-   <h1>Cities</h1>
+<br />
+<h1 >Cities</h1>
+<br />
 
+<div class="row" id="City" style="margin-left: 10px;">
    {% for i in city_box %}
     
-   <div class="box">
+   <div class="card card-primary col-sm">
       <h2 align='center'>{{i}}</h2>
       <div>
          {% for j in objects_s %}
             {% if j.city == i %}
-               <a href="/service/view?serid={{j.id}}" style="font-size:15px;"> {{j.title}} | {{j.day}} </a> <br /> <hr /> <br />
+               <a class='btn btn-link ' href="/service/view?serid={{j.id}}" style="font-size:15px;"> {{j.title}} | {{j.day}} </a> <br />
             {% endif %}
          {% endfor %}
       </div>
@@ -28,19 +37,20 @@
    </div>
 
    {% endfor %}
-
 </div>
-
-<div class="container" >
-        <h1 >Business</h1>
+<br />
+<h1 >Business</h1>
+<br />
+<div class="row" id="Busi" style="width:90%; margin-left: 10px;">
+       
         {% for i in busi_ser_city %}
         
-        <div class="box" >
+        <div class="card card-primary col-sm" >
             <h2 align='center'>{{i}}</h2>
-            <div>
+            <div >
                {% for j in objects_s %}
                   {% if j.city == i and j.stype == 'Business' %}
-                     <a href="/service/view?serid={{j.id}}" style="font-size:15px;"> {{j.title}} | {{j.day}} </a> <br /> <hr /> <br />
+                     <a href="/service/view?serid={{j.id}}" style="font-size:15px;"> {{j.title}} | {{j.day}} </a>  <br />
                   {% endif %}
                {% endfor %}
                <!-- <a href="" >See More</a> -->
@@ -48,17 +58,18 @@
         </div>
         {% endfor %}
     </div>
-
-
-   <div id='Doc' class="container">
-      <h1>Doctor</h1>
+    <br />
+    <h1>Doctor</h1>
+    <br />
+   <div class="row" id='Doc'  style="width:90%;margin-left: 10px;">
+      
       {% for i in doc_city %}
-      <div class="box">
+      <div class="card card-primary col-sm">
          <h2 align='center'>{{i}}</h2>
          <div>
             {% for j in objects_s %}
             {% if i == j.city and j.stype == 'Doctor' %}
-            <a href="/service/view?serid={{j.id}}" style="font-size:15px;"> {{j.title}} | {{j.day}} </a> <br /> <hr /> <br />
+            <a href="/service/view?serid={{j.id}}" style="font-size:15px;"> {{j.title}} | {{j.day}} </a>  <br />
             {% endif %}
             {% endfor %} 
          </div>

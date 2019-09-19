@@ -1,6 +1,10 @@
+from .paytm import checksum
 from django.shortcuts import render,redirect
 from pages.models import client,appointment,sp,admin,service
+from django.db.models import Q
+from django.views.decorators.csrf import csrf_exempt
 
+MERCHANT_KEY = "TsmOJd40100529105511"
 #from django.forms import UploadFileForm
 
 issp = False
@@ -207,11 +211,11 @@ def clientSignup(request):
 	else:			
 		c1 = client(id=(client.objects.count()+1),name=request.POST['name'],city=request.POST['location'],email=request.POST['email_id'],phone_no=request.POST['mobile'],password=request.POST['password'],gender=request.POST['gender'])
 		#print("\n\n insert: ",c1.save(),"\n\n")
-		if c1.save()>0:
-			responce = redirect('/client/dashboard')
-			responce.set_cookie("userid",c1.id)
-			return responce
-		return None
+		c1.save()
+		responce = redirect('/client/dashboard')
+		responce.set_cookie("userid",c1.id)
+		return responce
+		
 
 def signin(request):
 
@@ -245,7 +249,7 @@ def signin(request):
 
 		if username == None:
 			res = render(request,r'login\userlogin.html',{'profile_visibility': 'none','obj_ser':service.objects.all(),'register_visibility':'block',"user_name":None,"login_error":login_error})
-			res.session('userid','')
+			res.set_cookie('userid','')
 			return res
 		else:
 
@@ -275,13 +279,13 @@ def SPSignup(request):
 		
 		sp1 = sp(id=(sp.objects.count()+1),name=request.POST['name'],city=request.POST['location'],email=request.POST['email_id'],phone_no=request.POST['phone_no'],password=request.POST['password'])
 		#print("\n\n insert: ",c1.save(),"\n\n")
-		if sp1.save()>0:
-			responce = redirect('/sp/dashboard')
-			responce.set_cookie('userid','')
-			responce.set_cookie('adminid','')
-			responce.set_cookie("spid",sp1.id)
-			return responce
-		return redirect('/homepage')
+		sp1.save()
+		responce = redirect('/sp/dashboard')
+		responce.set_cookie('userid','')
+		responce.set_cookie('adminid','')
+		responce.set_cookie("spid",sp1.id)
+		return responce
+		
 
 def SPLogin(request):
 
@@ -379,7 +383,7 @@ def spdashboard(request):
 def appointments(request):
 	
 	if request.COOKIES['userid'] == None or request.COOKIES['userid'] == '':
-		return redirect('home')
+		return redirect(request.get_full_path())
 
 	if request.method=="POST":
 		pd = request.POST
@@ -387,6 +391,7 @@ def appointments(request):
 		obj.save()
 		
 		return redirect('/homepage')
+		
 	return render(request,'appointment.html',{})
 
 def notification(request):	
@@ -594,7 +599,17 @@ def deleteappointment(request,appid):
 		return None
 
 def appapprove(request):
-	appointment.objects.filter(id=request.POST['appid']).update(status="Approved")
+	from django.core.mail import send_mail,SafeMIMEText
+	from django.conf import settings
+
+	obj = appointment.objects.filter(id=request.POST['appid'])
+	obj.update(status="Approved")
+	print(obj[0].clientid.email)
+
+	x = """---------------------------------------------------"""
+	x += """\n Your appointment is approved for\n Service Name :- {}\n Service Type :- {}\n time :- {}\n Date :- {}\n Location :- {}\n""".format(obj[0].serviceid.title,obj[0].serviceid.stype,obj[0].time,obj[0].date,obj[0].serviceid.location)
+	x += """--------------------------------------------------"""
+	send_mail('Approved - AppointmentMaster',x,settings.EMAIL_HOST_USER,[obj[0].clientid.email],fail_silently=False)
 	return redirect('/sp/appointment')
 
 def appreject(request):
@@ -602,4 +617,50 @@ def appreject(request):
 	return redirect('/sp/appointment')
 
 def search(request):
-	return usercheck_profiling(request,'search.html',False,{'search':service.objects.filter(title__contains=request.GET['searchtext'])})
+	items = service.objects.filter(Q(title__icontains=request.GET['searchtext'])|Q(description__icontains=request.GET['searchtext'])|Q(stype__icontains=request.GET['searchtext']))
+	isitems = False
+	if len(items)>0:
+		isitems = True
+	return usercheck_profiling(request,'search.html',False,{'search':items,'issearch':isitems})
+
+@csrf_exempt
+def order(request):
+
+	
+	param_dict = {
+
+        'MID': "TsmOJd40100529105511",
+        'ORDER_ID': '001',
+        'TXN_AMOUNT': '100',
+        'CUST_ID': "pareshsharma98000@gmail.com",
+        'INDUSTRY_TYPE_ID': 'Retail',
+        'WEBSITE': 'WEBSTAGING',
+        'CHANNEL_ID': 'WEB',
+        'CALLBACK_URL':'http://localhost:8000/handlerequest/',
+    }
+	param_dict['CHECKSUMHASH'] = checksum.generate_checksum(param_dict, MERCHANT_KEY)
+
+	return render(request, 'paytm.html', {'param_dict': param_dict})
+
+@csrf_exempt
+def handlerequest(request):
+	# paytm will send you post request here
+    form = request.POST
+    response_dict = {}
+    checksum1 = ""
+    for i in form.keys():
+        response_dict[i] = form[i]
+        if i == 'CHECKSUMHASH':
+            checksum1 = form[i]
+
+    verify = checksum.verify_checksum(response_dict, MERCHANT_KEY, checksum1)
+
+    if verify:
+        if response_dict['RESPCODE'] == '01':
+            print('order successful')
+        else:
+            print('order was not successful because' + response_dict['RESPMSG'])
+    return render(request, '/paymentstatus.html', {'response': response_dict})	
+
+def paytm(request):
+	return render(request,"paytm.html",{})

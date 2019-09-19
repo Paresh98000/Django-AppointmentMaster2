@@ -6,6 +6,7 @@
 		
 		<link rel='stylesheet' type='text/css' href="{% static 'pages/header.css' %}" />
 		<link rel='stylesheet' type='text/css' href="{% static 'pages/footer.css' %}" />
+		<link rel="stylesheet" href="{% static 'bootstrap-4.3.1-dist/css/bootstrap.min.css' %}">
 
 		<script>
 		
@@ -50,7 +51,7 @@
 
 		<header>
 				
-			<div class='containerheader'>
+			<div class='container-fluid'>
 				
 				<div class="title" style="width: 30%; ">
 					<h1 style="margin-left:30px; float:left; min-width: 290px"><a href="/homepage" style="text-decoration: none; "> Appointment Master </a> </h1>
@@ -67,9 +68,9 @@
 
 					<div class="pmenu" >
 					<div id="profileicon" onmousedown="dropdown();" ></div>
-					<div id="menus">
+					<div id="menus" class='body'>
 			
-						<ul>
+						<ul >
 
 							{% if issp %}
 							
@@ -86,8 +87,8 @@
 
 								<!-- <li><a href="{% url 'clientprf'  %}"> Profile </a></li> -->
 								<li><a href="{% url 'clientdbd' %}"> Dashboard</a></li>
-								<li><a href="{% url 'appointment' %}">Appointment</a></li>
-								<li><a href="{% url 'notification' %}">Notification</a></li>
+								<li><a href="{% url 'manageappointment' %}">Appointment</a></li>
+								<!-- <li><a href="{% url 'notification' %}">Notification</a></li> -->
 								<li><a href="{% url 'lot' %}" onclick="logout();">Log Out</a></li>
 
 							{% endif %}
@@ -104,7 +105,7 @@
 				</span>
 				</div>
 
-				<div class="search" style="float:left; width: 40%; padding-left: 16%;">
+				<div class="search" style="float:left; margin-top:10px; width: 50%; padding-left: 16%;">
 						<form method="get" action="/service/search">
 						<input required type="text" placeholder="search doctor | appointment" id="searchtext" name="searchtext" onkeydown="search();" style="font-size: 20px; width: 70%; padding: 5px; padding-left:9px;  border-radius: 10px; padding-right: 40px;"/>
 						<a id="rr" style="text-decoration:none; " href=""><span id="redirect"><img id="searchbtn" style="position:relative; border: 1px solid solid;  border-radius:10px; padding: 3px; /* box-shadow: 1px 1px 5px black; */ vertical-align:bottom; font-weight:bold;" src="{% static 'images/searchbtn.png' %}" />Search</span> </a>
@@ -113,9 +114,11 @@
 			</div>
 
 		</header>
-
+		<br />
+		<br />
+		<br />
 		<div class="navigation" >
-			<nav>
+			<nav class="navbar navbar-default">
 				<ul>
 					<li><a href="{% url 'home' %}">Homepage</a> </li>
 					<li style="color: black; font-weight: normal;">Take Appointment For :-</li>
@@ -129,18 +132,17 @@
 										<div style="float:left;">
 											<ul>
 												{% for i in service_types %}
-												
 												<li>
 													<a href="/sp/service?title={{i}}">{{i}}</a>
 													<ul style="margin-top:20px;">
 														{% for x in obj_ser %}
 														{% if i == x.stype %}
-														<li><a href="/service/view?serid={{x.id}}">{{x.title}} | {{x.city}}</a></li>
+														<li><a href="/service/view?serid={{x.id}}" style="font-size: 15px;">{{x.title}} | {{x.city}}</a></li>
 														{% endif %}
 														{% endfor %}
 													</ul>
+													<br />
 												</li>
-
 												{% endfor %}
 											</ul>
 										</div>
@@ -159,8 +161,8 @@
 			</nav>
 			
 		</div>
-		
-	<div class='otherpages' style='background-image:url("{% static '/images/b.png' %}"); background-repeat: space; background-size:cover;' >
+		<hr class='hr'/>
+	<div class='panel panel-default' style='background-image:url("{% static '/images/b.png' %}"); background-repeat: space; background-size:cover;' >
 	
 		{% block otherpage %}
 			
@@ -172,10 +174,9 @@
 		
 	</div>
 
-	<footer>
+	<footer class='container-fluid'>
 			<p id="title"> Appointment Master </p>
 		<div>
-				
 			<div style='float:left; overflow: auto;'>
 				<ul>
 					<li><a href="{% url 'home' %}">Homepage</a></li>

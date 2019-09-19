@@ -3,7 +3,9 @@
 {% load static %}
 
 {% block otherpage %}
-    
+
+    {% if issearch %}
+
     {% for s in search %}
     
     <a href="/service/view?serid={{s.id}}">
@@ -15,5 +17,11 @@
     </a>
 
     {% endfor %}
+
+    {% else %}
+
+        <h1> <img style="width:200px; height:200px;" src="{% static 'images/oops.png' %}"/> No Result found...</h1>
+
+    {% endif %}
 
 {% endblock %}

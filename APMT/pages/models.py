@@ -9,17 +9,7 @@ class client(models.Model):
 	password = models.CharField(max_length=30)
 	gender = models.CharField(max_length=4)
 	
-	def save(self):
-		import MySQLdb as s
-
-		con = s.connect(user = 'root',password='',database='appointmentmaster')
-		cur = con.cursor()
-		query = 'insert into pages_client (id,name,city,email,phone_no,password,gender) values ({},"{}","{}","{}","{}","{}","{}")'.format(self.id,self.name,self.city,self.email,self.phone_no,self.password,self.gender)
-		print("\n\n",self.name,"\n\n")
-		out = cur.execute(query)
-		if out > 0:
-			con.commit()
-		return out
+	
 
 class admin(models.Model):
 	id = models.IntegerField(primary_key=True)
@@ -34,23 +24,6 @@ class sp(models.Model):
 	phone_no = models.CharField(max_length=30)
 	password = models.CharField(max_length=30)
 	status = models.CharField(max_length=10)
-
-	def save(self):
-
-		import MySQLdb as s
-
-		con = s.connect(user = 'root',password='',database='appointmentmaster')
-		cur = con.cursor()
-		query = 'insert into pages_sp (id,name,city,email,phone_no,password) values ({},"{}","{}","{}","{}","{}")'.format(self.id,self.name,self.city,self.email,self.phone_no,self.password)
-		
-		print("\n\n",self.name,"\n\n")
-		
-		out = cur.execute(query)
-		
-		if out > 0:
-			con.commit()
-		
-		return out
 
 class service(models.Model):
 	id = models.IntegerField(primary_key=True)

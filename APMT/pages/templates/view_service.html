@@ -21,13 +21,25 @@
 
         </style>
 
-<style>
+    <style>
 
         input,textarea,label{
             font-size: 20px;
         }
         
     </style>
+
+    <script>
+        function val_user(){
+            ele = document.getElementsByName('userid');
+            if(ele[0].value==""||ele[0].value=="None"||ele[0].value==null){
+                alert('You are not signed in...');
+                
+            }
+            
+        }
+    </script>
+
 
     </head>
 
@@ -53,12 +65,13 @@
         <form method='post' action="{% url 'appointment' %}">
             {% csrf_token %}
             <h2>Appointment</h2>
+            <input name='userid' value="{{user_name}}" hidden/>
             <label>Time : </label><input type="time" name='time' required/> <br />
             <label>Date : </label><input type="date" name="date" required/><br />
             <label>Details : </label><textarea name='detail' placeholder="details" required></textarea> <br />
             <input type='text' name='serid' value='{{ser.id}}' hidden />
             <hr />
-            <input type='submit' value="Take Appointment" style="font-size:20px;">
+            <input onclick='return val_user();' type='submit' value="Take Appointment" style="font-size:20px;">
         </form>
     </div>
 

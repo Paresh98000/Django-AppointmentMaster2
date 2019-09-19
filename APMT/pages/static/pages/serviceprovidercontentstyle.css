@@ -11,9 +11,8 @@
 	background: linear-gradient(to bottom right, green,black);
 	float: left;
 	color: white;
-	min-width: 200px;
-	width:20%;
-	height: 200px;
+	width:500px;
+	height: 310px;
 	box-shadow: 3px 5px 3px gray;
 	border-radius: 20px;
 	margin-left: 10px;
